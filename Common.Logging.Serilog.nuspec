@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Common.Logging.Serilog</id>
+    <version>2013.07.23</version>
+    <authors>CaptiveAire Systems</authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/CaptiveAire/Common.Logging.Serilog</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A bridge between the old and the new: Simple Common Logging Adapter for Serilog NoSQL Logging.</description>
+    <language>en-US</language>
+    <tags>serilog common logging adapter</tags>
+    <dependencies>
+      <dependency id="Common.Logging" version="2.1.2" />
+      <dependency id="Serilog" version="0.8.5" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="content\app.config.transform" target="content\app.config.transform" />
+    <file src="content\web.config.transform" target="content\web.config.transform" />  	
+    <file src="src\bin\Release\Common.Logging.Serilog.dll" target="lib\net45" />
+    <file src="src\bin\Release\Common.Logging.Serilog.pdb" target="lib\net45" />
+  </files>
+</package>
