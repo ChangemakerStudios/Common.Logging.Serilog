@@ -3,10 +3,6 @@ Common.Logger.Serilog
 Provides a bridge from the old to the new logging systems.
 -----
 
-### [Common Logging](http://netcommon.sourceforge.net/ "Common Infrastructure Libraries for .NET")
-
-### [Serilog Project](http://serilog.net/ "Serilog")
-
 ### Usage
 
 ### Configure app.config/web.config file of your project:
@@ -35,3 +31,8 @@ var log = new LoggerConfiguration()
 // set global instance of Serilog logger which Common.Logger.Serilog requires.
 Log.Logger = log;
 ```
+
+### Links
+
+* [Common Logging](http://netcommon.sourceforge.net/ "Common Infrastructure Libraries for .NET")
+* [Serilog Project](http://serilog.net/ "Serilog")
