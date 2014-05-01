@@ -101,7 +101,7 @@ namespace Common.Logging.Serilog
         {
             var logLevel = this.ConvertLevel(level);
 
-            this._logger.Write(logLevel, exception, message.ToString());
+            this._logger.Write(logLevel, exception, "{message:l}", message.ToString());
         }
 
         /// <summary> Convert level. </summary>
