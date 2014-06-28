@@ -101,7 +101,18 @@ namespace Common.Logging.Serilog
         {
             var logLevel = this.ConvertLevel(level);
 
-            this._logger.Write(logLevel, exception, "{message:l}", message.ToString());
+            // _logger.Write will happily log both strings and objects.
+            // Objects will be logged without destroying their structure (using "structured" logging).
+            // But just in case, there is a try-catch fallback to convert the message to a string
+            // before trying again to log it.
+            try
+            {
+                this._logger.Write(logLevel, exception, "{message:l}", message);
+            }
+            catch
+            {
+                this._logger.Write(logLevel, exception, "{message:l}", message.ToString());
+            }
         }
 
         /// <summary> Convert level. </summary>
