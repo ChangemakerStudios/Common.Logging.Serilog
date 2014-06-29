@@ -20,6 +20,8 @@ namespace Common.Logging.Serilog
 
     using global::Serilog;
     using global::Serilog.Events;
+    using System.Web.Script.Serialization;
+    using System.Collections.Generic;
 
     /// <summary> Serilog common logger. </summary>
     public class SerilogCommonLogger : AbstractLogger
@@ -107,6 +109,26 @@ namespace Common.Logging.Serilog
             // before trying again to log it.
             try
             {
+                // If message is a string, try to deserialize if it might be a JSON object.
+                // If that goes wrong, simply log it as a string.
+                //
+                // This is very useful, because Common.Logging implementations for other logging packages
+                // often do not support logging objects - when given an object, they just log the name of the object.
+                // By including this conversion, software trying to log objects via Common.Logging can
+                // serialise those objects into a JSON string and log that string, knowing that if
+                // Common.Logging.Serilog is used, the object will still be logged in a structured manner.
+
+                if (message is string)
+                {
+                    string messageString = (string)message;
+
+                    if (messageString.TrimStart().StartsWith("{"))
+                    {
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        message = js.Deserialize<Dictionary<string, Object>>(messageString);
+                    }
+                }
+
                 this._logger.Write(logLevel, exception, "{message:l}", message);
             }
             catch
