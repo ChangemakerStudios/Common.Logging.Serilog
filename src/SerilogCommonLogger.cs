@@ -21,77 +21,47 @@ namespace Common.Logging.Serilog
     using global::Serilog;
     using global::Serilog.Events;
 
-    /// <summary> Serilog common logger. </summary>
+    /// <summary>
+    ///     Serilog common logger.
+    /// </summary>
     public class SerilogCommonLogger : AbstractLogger
     {
-        #region Fields
-
-        private readonly ILogger _logger;
-
-        #endregion
-
-        #region Constructors and Destructors
+        readonly ILogger _logger;
 
         public SerilogCommonLogger(ILogger logger)
         {
-            this._logger = logger;
+            _logger = logger;
         }
-
-        #endregion
-
-        #region Public Properties
 
         public override bool IsDebugEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Debug));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Debug)); }
         }
 
         public override bool IsErrorEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Error));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Error)); }
         }
 
         public override bool IsFatalEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Fatal));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Fatal)); }
         }
 
         public override bool IsInfoEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Info));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Info)); }
         }
 
         public override bool IsTraceEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Trace));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Trace)); }
         }
 
         public override bool IsWarnEnabled
         {
-            get
-            {
-                return this._logger.IsEnabled(this.ConvertLevel(LogLevel.Warn));
-            }
+            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Warn)); }
         }
-
-        #endregion
-
-        #region Methods
 
         /// <summary> Actually sends the <paramref name="message" /> to the underlying log system. </summary>
         /// <param name="level"> the level of this log event. </param>
@@ -99,36 +69,34 @@ namespace Common.Logging.Serilog
         /// <param name="exception"> the exception to log (may be null) </param>
         protected override void WriteInternal(LogLevel level, object message, Exception exception)
         {
-            var logLevel = this.ConvertLevel(level);
+            LogEventLevel logLevel = ConvertLevel(level);
 
-            this._logger.Write(logLevel, exception, "{message:l}", message.ToString());
+            if (message is string) _logger.Write(logLevel, exception, "{Message}", message.ToString());
+            else _logger.Write(logLevel, exception, "{@Message}", message);
         }
 
         /// <summary> Convert level. </summary>
         /// <param name="logLevel"> The log level. </param>
         /// <returns> The level converted. </returns>
-        private LogEventLevel ConvertLevel(LogLevel logLevel)
+        LogEventLevel ConvertLevel(LogLevel logLevel)
         {
             LogEventLevel logEventLevel;
-            if (!Enum.TryParse(logLevel.ToString(), true, out logEventLevel))
+            if (Enum.TryParse(logLevel.ToString(), true, out logEventLevel)) return logEventLevel;
+
+            switch (logLevel)
             {
-                switch (logLevel)
-                {
-                    case LogLevel.All:
-                        logEventLevel = LogEventLevel.Verbose;
-                        break;
-                    case LogLevel.Info:
-                        logEventLevel = LogEventLevel.Information;
-                        break;
-                    case LogLevel.Warn:
-                        logEventLevel = LogEventLevel.Warning;
-                        break;
-                }
+                case LogLevel.All:
+                    logEventLevel = LogEventLevel.Verbose;
+                    break;
+                case LogLevel.Info:
+                    logEventLevel = LogEventLevel.Information;
+                    break;
+                case LogLevel.Warn:
+                    logEventLevel = LogEventLevel.Warning;
+                    break;
             }
 
             return logEventLevel;
         }
-
-        #endregion
     }
 }
