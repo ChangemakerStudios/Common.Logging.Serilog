@@ -71,6 +71,14 @@ namespace Common.Logging.Serilog
         {
             LogEventLevel logLevel = ConvertLevel(level);
 
+            var type = message.GetType();
+
+            if (type == typeof(StringFormatFormattedMessage))
+            {
+                _logger.Write(logLevel, exception, message.ToString(), null);
+
+            }
+            else 
             if (message is string) _logger.Write(logLevel, exception, "{Message:l}", message.ToString());
             else _logger.Write(logLevel, exception, "{@Message}", message);
         }
