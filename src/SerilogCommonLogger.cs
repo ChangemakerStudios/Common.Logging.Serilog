@@ -15,16 +15,15 @@
 namespace Common.Logging.Serilog
 {
     using System;
-
-    using Common.Logging.Factory;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using global::Serilog;
-    using global::Serilog.Events;
 
     /// <summary>
     ///     Serilog common logger.
     /// </summary>
-    public class SerilogCommonLogger : AbstractLogger
+    public class SerilogCommonLogger : ILog
     {
         readonly ILogger _logger;
 
@@ -33,77 +32,590 @@ namespace Common.Logging.Serilog
             _logger = logger;
         }
 
-        public override bool IsDebugEnabled
+        public bool IsDebugEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Debug)); }
+            get { return _logger.IsEnabled(LogLevel.Debug.ToSerilogEventLevel()); }
         }
 
-        public override bool IsErrorEnabled
+        public bool IsErrorEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Error)); }
+            get { return _logger.IsEnabled(LogLevel.Error.ToSerilogEventLevel()); }
         }
 
-        public override bool IsFatalEnabled
+        public bool IsFatalEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Fatal)); }
+            get { return _logger.IsEnabled(LogLevel.Fatal.ToSerilogEventLevel()); }
         }
 
-        public override bool IsInfoEnabled
+        public bool IsInfoEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Info)); }
+            get { return _logger.IsEnabled(LogLevel.Info.ToSerilogEventLevel()); }
         }
 
-        public override bool IsTraceEnabled
+        public bool IsTraceEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Trace)); }
+            get { return _logger.IsEnabled(LogLevel.Trace.ToSerilogEventLevel()); }
         }
 
-        public override bool IsWarnEnabled
+        public bool IsWarnEnabled
         {
-            get { return _logger.IsEnabled(ConvertLevel(LogLevel.Warn)); }
+            get { return _logger.IsEnabled(LogLevel.Warn.ToSerilogEventLevel()); }
         }
 
-        /// <summary> Actually sends the <paramref name="message" /> to the underlying log system. </summary>
-        /// <param name="level"> the level of this log event. </param>
-        /// <param name="message"> the message to log. </param>
-        /// <param name="exception"> the exception to log (may be null) </param>
-        protected override void WriteInternal(LogLevel level, object message, Exception exception)
+        public virtual void Trace(object message)
         {
-            LogEventLevel logLevel = ConvertLevel(level);
+            Write(LogLevel.Trace, message);
+        }
 
-            var type = message.GetType();
+        public virtual void Trace(object message, Exception exception)
+        {
+            if (!IsTraceEnabled)
+                return;
 
-            if (type == typeof(StringFormatFormattedMessage))
+            Write(LogLevel.Trace, exception, message);
+        }
+
+        public virtual void TraceFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteFormat(LogLevel.Trace, formatProvider, format, args);
+        }
+
+        public virtual void TraceFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteFormat(LogLevel.Trace, exception, formatProvider, format, args);
+        }
+
+        public virtual void TraceFormat(string format, params object[] args)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteFormat(LogLevel.Trace, format, args);
+        }
+
+        public virtual void TraceFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteFormat(LogLevel.Trace, exception, format, args);
+        }
+
+        public virtual void Trace(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteCallback(LogLevel.Trace, formatMessageCallback);
+        }
+
+        public virtual void Trace(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteCallback(LogLevel.Trace, formatMessageCallback, exception);
+        }
+
+        public virtual void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteCallback(LogLevel.Trace, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Trace(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsTraceEnabled)
+                return;
+            WriteCallback(LogLevel.Trace, formatProvider, formatMessageCallback, exception);
+        }
+
+        public virtual void Debug(object message)
+        {
+            if (!IsDebugEnabled)
+                return;
+            Write(LogLevel.Debug, message);
+        }
+
+        public virtual void Debug(object message, Exception exception)
+        {
+            if (!IsDebugEnabled)
+                return;
+            Write(LogLevel.Debug, exception, message);
+        }
+
+        public virtual void DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteFormat(LogLevel.Debug, formatProvider, format, args);
+        }
+
+        public virtual void DebugFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteFormat(LogLevel.Debug, exception, formatProvider, format, args);
+        }
+
+        public virtual void DebugFormat(string format, params object[] args)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteFormat(LogLevel.Debug, format, args);
+        }
+
+        public virtual void DebugFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteFormat(LogLevel.Debug, exception, format, args);
+        }
+
+        public virtual void Debug(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteCallback(LogLevel.Debug, formatMessageCallback);
+        }
+
+        public virtual void Debug(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteCallback(LogLevel.Debug, formatMessageCallback, exception);
+        }
+
+        public virtual void Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteCallback(LogLevel.Debug, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Debug(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsDebugEnabled)
+                return;
+            WriteCallback(LogLevel.Debug, formatProvider, formatMessageCallback, exception);
+        }
+
+        public virtual void Info(object message)
+        {
+            if (!IsInfoEnabled)
+                return;
+            Write(LogLevel.Info, message);
+        }
+
+        public virtual void Info(object message, Exception exception)
+        {
+            if (!IsInfoEnabled)
+                return;
+            Write(LogLevel.Info, exception, message);
+        }
+
+        public virtual void InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteFormat(LogLevel.Info, formatProvider, format, args);
+        }
+
+        public virtual void InfoFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteFormat(LogLevel.Info, exception, formatProvider, format, args);
+        }
+
+        public virtual void InfoFormat(string format, params object[] args)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteFormat(LogLevel.Info, format, args);
+        }
+
+        public virtual void InfoFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteFormat(LogLevel.Info, exception, format, args);
+        }
+
+        public virtual void Info(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteCallback(LogLevel.Info, formatMessageCallback);
+        }
+
+        public virtual void Info(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteCallback(LogLevel.Info, formatMessageCallback, exception);
+        }
+
+        public virtual void Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteCallback(LogLevel.Info, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Info(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsInfoEnabled)
+                return;
+            WriteCallback(LogLevel.Info, formatProvider, formatMessageCallback, exception);
+        }
+
+        public virtual void Warn(object message)
+        {
+            if (!IsWarnEnabled)
+                return;
+            Write(LogLevel.Warn, message);
+        }
+
+        public virtual void Warn(object message, Exception exception)
+        {
+            if (!IsWarnEnabled)
+                return;
+            Write(LogLevel.Warn, exception, message);
+        }
+
+        public virtual void WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteFormat(LogLevel.Warn, formatProvider, format, args);
+        }
+
+        public virtual void WarnFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteFormat(LogLevel.Warn, exception, formatProvider, format, args);
+        }
+
+        public virtual void WarnFormat(string format, params object[] args)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteFormat(LogLevel.Warn, format, args);
+        }
+
+        public virtual void WarnFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteFormat(LogLevel.Warn, exception, format, args);
+        }
+
+        public virtual void Warn(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteCallback(LogLevel.Warn, formatMessageCallback);
+        }
+
+        public virtual void Warn(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteCallback(LogLevel.Warn, formatMessageCallback, exception);
+        }
+
+        public virtual void Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteCallback(LogLevel.Warn, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Warn(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsWarnEnabled)
+                return;
+            WriteCallback(LogLevel.Warn, formatProvider, formatMessageCallback, exception);
+        }
+
+        public virtual void Error(object message)
+        {
+            if (!IsErrorEnabled)
+                return;
+            Write(LogLevel.Error, message);
+        }
+
+        public virtual void Error(object message, Exception exception)
+        {
+            if (!IsErrorEnabled)
+                return;
+            Write(LogLevel.Error, exception, message);
+        }
+
+        public virtual void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteFormat(LogLevel.Error, formatProvider, format, args);
+        }
+
+        public virtual void ErrorFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteFormat(LogLevel.Error, exception, formatProvider, format, args);
+        }
+
+        public virtual void ErrorFormat(string format, params object[] args)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteFormat(LogLevel.Error, format, args);
+        }
+
+        public virtual void ErrorFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteFormat(LogLevel.Error, exception, format, args);
+        }
+
+        public virtual void Error(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteCallback(LogLevel.Error, formatMessageCallback);
+        }
+
+        public virtual void Error(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteCallback(LogLevel.Error, formatMessageCallback, exception);
+        }
+
+        public virtual void Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteCallback(LogLevel.Error, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Error(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsErrorEnabled)
+                return;
+            WriteCallback(LogLevel.Error, formatProvider, formatMessageCallback, exception);
+        }
+
+        public virtual void Fatal(object message)
+        {
+            if (!IsFatalEnabled)
+                return;
+            Write(LogLevel.Fatal, message);
+        }
+
+        public virtual void Fatal(object message, Exception exception)
+        {
+            if (!IsFatalEnabled)
+                return;
+            Write(LogLevel.Fatal, exception, message);
+        }
+
+        public virtual void FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteFormat(LogLevel.Fatal, formatProvider, format, args);
+        }
+
+        public virtual void FatalFormat(
+            IFormatProvider formatProvider,
+            string format,
+            Exception exception,
+            params object[] args)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteFormat(LogLevel.Fatal, exception, formatProvider, format, args);
+        }
+
+        public virtual void FatalFormat(string format, params object[] args)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteFormat(LogLevel.Fatal, format, args);
+        }
+
+        public virtual void FatalFormat(string format, Exception exception, params object[] args)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteFormat(LogLevel.Fatal, exception, format, args);
+        }
+
+        public virtual void Fatal(Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteCallback(LogLevel.Fatal, formatMessageCallback);
+        }
+
+        public virtual void Fatal(Action<FormatMessageHandler> formatMessageCallback, Exception exception)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteCallback(LogLevel.Fatal, formatMessageCallback, exception);
+        }
+
+        public virtual void Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteCallback(LogLevel.Fatal, formatProvider, formatMessageCallback);
+        }
+
+        public virtual void Fatal(
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception)
+        {
+            if (!IsFatalEnabled)
+                return;
+            WriteCallback(LogLevel.Fatal, formatProvider, formatMessageCallback, exception);
+        }
+
+        protected void Write(LogLevel level, object message)
+        {
+            Write(level, null, message);
+        }
+
+        protected void Write(LogLevel level, Exception exception, object message)
+        {
+            if (message is string)
+                _logger.Write(level.ToSerilogEventLevel(), exception, "{Message:l}", message.ToString());
+            else
+                _logger.Write(level.ToSerilogEventLevel(), exception, "{@Message}", message);
+        }
+
+        protected void WriteCallback(
+            LogLevel level,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception = null)
+        {
+            WriteCallback(level, null, formatMessageCallback, exception);
+        }
+
+        protected void WriteCallback(
+            LogLevel level,
+            IFormatProvider formatProvider,
+            Action<FormatMessageHandler> formatMessageCallback,
+            Exception exception = null)
+        {
+            formatMessageCallback(MakeFormatted(level, formatProvider, exception));
+        }
+
+        protected FormatMessageHandler MakeFormatted(
+            LogLevel level,
+            IFormatProvider formatProvider,
+            Exception exception)
+        {
+            var messageHandler = new FormatMessageHandler(delegate(string message, object[] parameters)
             {
-                _logger.Write(logLevel, exception, message.ToString(), null);
-            }
-            else 
-            if (message is string) _logger.Write(logLevel, exception, "{Message:l}", message.ToString());
-            else _logger.Write(logLevel, exception, "{@Message}", message);
+                string formatted = string.Format(formatProvider, message, parameters);
+
+                if (formatProvider == null)
+                    WriteFormat(level, exception, message, parameters);
+                else
+                    Write(level, exception, formatted);
+
+                return formatted;
+            });
+
+            return messageHandler;
         }
 
-        /// <summary> Convert level. </summary>
-        /// <param name="logLevel"> The log level. </param>
-        /// <returns> The level converted. </returns>
-        LogEventLevel ConvertLevel(LogLevel logLevel)
+        protected void WriteFormat(LogLevel level, Exception exception, string message, object[] parameters)
         {
-            LogEventLevel logEventLevel;
-            if (Enum.TryParse(logLevel.ToString(), true, out logEventLevel)) return logEventLevel;
+            WriteFormat(level, exception, null, message, parameters);
+        }
 
-            switch (logLevel)
+        protected void WriteFormat(LogLevel level, IFormatProvider formatProvider, string message, object[] parameters)
+        {
+            WriteFormat(level, null, formatProvider, message, parameters);
+        }
+
+        protected void WriteFormat(LogLevel level, string message, object[] parameters)
+        {
+            WriteFormat(level, null, null, message, parameters);
+        }
+
+        protected void WriteFormat(
+            LogLevel level,
+            Exception exception,
+            IFormatProvider formatProvider,
+            string message,
+            object[] parameters)
+        {
+            if (formatProvider == null)
             {
-                case LogLevel.All:
-                    logEventLevel = LogEventLevel.Verbose;
-                    break;
-                case LogLevel.Info:
-                    logEventLevel = LogEventLevel.Information;
-                    break;
-                case LogLevel.Warn:
-                    logEventLevel = LogEventLevel.Warning;
-                    break;
-            }
+                // check for non-value types and enable deconstruction on them...
+                List<KeyValuePair<string, string>> replaceParameters =
+                    parameters.Select((p, i) => new { Param = p, Index = i })
+                        .Where(p => p != null && !p.GetType().IsValueType)
+                        .Select(
+                            p =>
+                            new KeyValuePair<string, string>(string.Format("{{{0}}}", p.Index),
+                                string.Format("{{@{0}}}", p.Index)))
+                        .ToList();
 
-            return logEventLevel;
+                // replace format strings {0} with {@0}.
+                // not very fast, but simple at least.
+                message = replaceParameters.Aggregate(message,
+                    (current, replace) => current.Replace(replace.Key, replace.Value));
+
+                _logger.Write(level.ToSerilogEventLevel(), exception, message, parameters);
+            }
+            else
+                Write(level, exception, string.Format(formatProvider, message, parameters));
         }
     }
 }

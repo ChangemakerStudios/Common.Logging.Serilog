@@ -1,25 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>Common.Logging.Serilog</id>
-    <version>1.2.0</version>
-    <authors>CaptiveAire Systems</authors>
-    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-    <projectUrl>https://github.com/CaptiveAire/Common.Logging.Serilog</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A bridge between the old and the new: Simple Common Logging Adapter for Serilog Logging.</description>
-    <language>en-US</language>
-    <tags>serilog common logging adapter</tags>
-    <dependencies>
-      <dependency id="Common.Logging" version="2.2.0" />
-      <dependency id="Common.Logging.Core" version="2.2.0" />
-      <dependency id="Serilog" version="1.3.33" />
-    </dependencies>
-  </metadata>
-  <files>
-    <file src="content\app.config.transform" target="content\app.config.transform" />
-    <file src="content\web.config.transform" target="content\web.config.transform" />  	
-    <file src="src\bin\Release\Common.Logging.Serilog.dll" target="lib\net45" />
-    <file src="src\bin\Release\Common.Logging.Serilog.pdb" target="lib\net45" />
-  </files>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Common.Logging.Serilog</id>
+        <version>2.0.0</version>
+        <authors>CaptiveAire Systems</authors>
+        <owners>Jaben Cargman</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+        <projectUrl>https://github.com/CaptiveAire/Common.Logging.Serilog</projectUrl>
+        <iconUrl>http://serilog.net/images/serilog-nuget.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Easily bridge the old with the new and shiny: Common Logging adapter for Serilog structured logging.</description>
+        <releaseNotes>v2.0: Completely rewrote the logging to support structured object logging from Common Logging.</releaseNotes>
+        <language>en-US</language>
+        <tags>serilog common logging adapter json structured</tags>
+        <dependencies>
+            <dependency id="Common.Logging" version="2.2.0" />
+            <dependency id="Common.Logging.Core" version="2.2.0" />
+            <dependency id="Serilog" version="1.4.10" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\app.config.transform" target="content\app.config.transform" />
+        <file src="content\web.config.transform" target="content\web.config.transform" />
+        <file src="src\bin\Release\Common.Logging.Serilog.dll" target="lib\net45\Common.Logging.Serilog.dll" />
+        <file src="src\bin\Release\Common.Logging.Serilog.pdb" target="lib\net45\Common.Logging.Serilog.pdb" />
+    </files>
 </package>
