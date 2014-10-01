@@ -32,6 +32,7 @@ namespace Common.Logging.Serilog
             switch (logLevel)
             {
                 case LogLevel.All:
+                case LogLevel.Trace:
                     logEventLevel = LogEventLevel.Verbose;
                     break;
                 case LogLevel.Info:
