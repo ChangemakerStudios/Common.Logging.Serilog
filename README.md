@@ -3,6 +3,8 @@ Common.Logger.Serilog
 Provides a bridge from the old to the new logging systems.
 -----
 
+[![Build status](https://ci.appveyor.com/api/projects/status/0t8oqa6n5bu2t3qa/branch/master?svg=true)](https://ci.appveyor.com/project/Jaben/common-logging-serilog/branch/master)
+
 ### Usage
 
 ### Configure app.config/web.config file of your project:
