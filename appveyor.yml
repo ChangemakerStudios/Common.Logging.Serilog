@@ -1,0 +1,9 @@
+﻿﻿platform: AnyCPU
+configuration: Release
+
+before_build:
+- nuget restore
+
+after_build:
+- nuget pack Common.Logging.Serilog.nuspec -version %APPVEYOR_BUILD_VERSION%
+- appveyor PushArtifact Common.Logging.Serilog.%APPVEYOR_BUILD_VERSION%.nupkg

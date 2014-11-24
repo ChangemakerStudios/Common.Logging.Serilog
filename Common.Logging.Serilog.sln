@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.Serilog", "src\Common.Logging.Serilog.csproj", "{03A85FD2-01EB-4A87-AB4D-D0685F0ED262}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B236BBCB-9A31-4AF3-8B95-8D47FE92A08D}"
@@ -13,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{D6378B21-1C82-4EE9-BDED-0C0B5DF169FF}"
 	ProjectSection(SolutionItems) = preProject
 		content\app.config.transform = content\app.config.transform
+		appveyor.yml = appveyor.yml
 		Common.Logging.Serilog.nuspec = Common.Logging.Serilog.nuspec
 		README.md = README.md
 		content\web.config.transform = content\web.config.transform
