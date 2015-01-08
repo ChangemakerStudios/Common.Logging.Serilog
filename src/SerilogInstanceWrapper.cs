@@ -32,7 +32,7 @@ namespace Common.Logging.Serilog
                 if (_logger == null && Log.Logger != null && !Log.Logger.ToString().EndsWith("SilentLogger"))
                 {
                     // if we actually have a global logger -- let's configure and use it.
-                    _logger = _configureContext(_logger);
+                    _logger = _configureContext(Log.Logger);
                 }
                 
                 if (_logger == null)
