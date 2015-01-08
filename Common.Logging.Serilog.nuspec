@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Common.Logging.Serilog</id>
-        <version>2.2.2</version>
+        <version>2.3.0</version>
         <authors>CaptiveAire Systems</authors>
         <owners>Jaben Cargman</owners>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -10,7 +10,7 @@
         <iconUrl>http://serilog.net/images/serilog-nuget.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Easily bridge the old with the new and shiny: Common Logging adapter for Serilog structured logging.</description>
-        <releaseNotes>v2.0: Completely rewrote the logging to support structured object logging from Common Logging.</releaseNotes>
+        <releaseNotes>v2.3: Added lazy loading for global serilog instance.</releaseNotes>
         <language>en-US</language>
         <tags>serilog common logging adapter json structured</tags>
         <dependencies>

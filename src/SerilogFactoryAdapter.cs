@@ -45,17 +45,6 @@ namespace Common.Logging.Serilog
         }
 
         /// <summary>
-        ///     Gets the logger.
-        /// </summary>
-        /// <value>
-        ///     The logger.
-        /// </value>
-        protected ILogger Logger
-        {
-            get { return _logger ?? Log.Logger; }
-        }
-
-        /// <summary>
         ///     Get a ILog instance by type.
         /// </summary>
         /// <param name="type"> The type to use for the logger.</param>
@@ -64,7 +53,7 @@ namespace Common.Logging.Serilog
         /// </returns>
         public ILog GetLogger(Type type)
         {
-            return new SerilogCommonLogger(Logger.ForContext(type));
+            return new SerilogCommonLogger(new SerilogInstanceWrapper(l => l.ForContext(type), _logger));
         }
 
         /// <summary>
@@ -76,7 +65,7 @@ namespace Common.Logging.Serilog
         /// </returns>
         public ILog GetLogger(string name)
         {
-            return new SerilogCommonLogger(Logger.ForContext("name", name));
+            return new SerilogCommonLogger(new SerilogInstanceWrapper(l => l.ForContext("NamedContext", name), _logger));
         }
     }
 }

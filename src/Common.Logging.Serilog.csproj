@@ -54,6 +54,7 @@
     <Compile Include="SerilogCommonLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerilogFactoryAdapter.cs" />
+    <Compile Include="SerilogInstanceWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
