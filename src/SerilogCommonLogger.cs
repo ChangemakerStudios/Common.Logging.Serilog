@@ -617,5 +617,22 @@ namespace Common.Logging.Serilog
             else
                 Write(level, exception, string.Format(formatProvider, message, parameters));
         }
+
+
+        /// <summary>
+        /// Returns the global context for variables
+        /// </summary>
+        public virtual IVariablesContext GlobalVariablesContext
+        {
+            get { return new Simple.NoOpVariablesContext(); }
+        }
+
+        /// <summary>
+        /// Returns the thread-specific context for variables
+        /// </summary>
+        public virtual IVariablesContext ThreadVariablesContext
+        {
+            get { return new Simple.NoOpVariablesContext(); }
+        }
     }
 }
