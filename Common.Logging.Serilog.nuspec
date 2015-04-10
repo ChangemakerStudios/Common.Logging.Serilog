@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Common.Logging.Serilog</id>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <authors>CaptiveAire Systems</authors>
         <owners>Jaben Cargman</owners>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -10,13 +10,13 @@
         <iconUrl>http://serilog.net/images/serilog-nuget.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Easily bridge the old with the new and shiny: Common Logging adapter for Serilog structured logging.</description>
-        <releaseNotes>v3.0: Added basic support for Commong Logger v3.0.</releaseNotes>
+        <releaseNotes>v3.1: Updated Common Logging and Serilog references.</releaseNotes>
         <language>en-US</language>
         <tags>serilog common logging adapter json structured</tags>
         <dependencies>
-            <dependency id="Common.Logging" version="3.0.0" />
-            <dependency id="Common.Logging.Core" version="3.0.0" />
-            <dependency id="Serilog" version="1.4.15" />
+            <dependency id="Common.Logging" version="3.1.0" />
+            <dependency id="Common.Logging.Core" version="3.1.0" />
+            <dependency id="Serilog" version="1.5.1" />
         </dependencies>
     </metadata>
     <files>
