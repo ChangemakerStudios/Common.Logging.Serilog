@@ -6,7 +6,7 @@ namespace Common.Logging.Serilog
 {
     public class SerilogPreformatter
     {
-        private readonly Regex _numericFormattedRegex = new Regex(@"{(\d)}", RegexOptions.Compiled);
+        private readonly Regex _numericFormattedRegex = new Regex(@"{(\d{1,})}", RegexOptions.Compiled);
 
         public bool TryPreformat(string templateString, object[] args, out string newTemplate, out object[] newArgs)
         {
