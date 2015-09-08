@@ -10,17 +10,16 @@ namespace Common.Logging.Serilog
 
         public bool TryPreformat(string templateString, object[] args, out string newTemplate, out object[] newArgs)
         {
+            newTemplate = templateString;
+            newArgs = args;
+
             if (string.IsNullOrEmpty(templateString))
             {
-                newTemplate = templateString;
-                newArgs = args;
                 return true;
             }
 
             if (args == null || !args.Any())
             {
-                newTemplate = templateString;
-                newArgs = args;
                 return true;
             }
 
