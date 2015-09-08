@@ -61,7 +61,36 @@ namespace Common.Logging.Serilog.Tests
             Assert.That(_resultTemplate, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void Should_Keep_String_Unformatted_If_Serilog_Formatting_Used()
         {
+            /* Setup */
+            const string originalTemplate = "Look at this, a {serilog} formatted string!";
+            var args = new object[] { "serilog" };
+
+            /* Test */
+            var result = _preformatter.TryPreformat(originalTemplate, args, out _resultTemplate, out _resultArgs);
+
+            /* Assert */
+            Assert.That(result, Is.True);
+            Assert.That(_resultTemplate, Is.EqualTo(originalTemplate));
+        }
+
+        [Test]
+        public void Should_Preformat_Numeric_Part_Of_String_But_Keep_Serilog_Formatted_String_And_Arguments()
+        {
+            /* Setup */
+            const string originalTemplate = "This {@string} has {1} numeric match";
+            var args = new object[] { "serilog", "1" };
+            const string expectedTemplate = "This {@string} has 1 numeric match";
+
+
+            /* Test */
+            var result = _preformatter.TryPreformat(originalTemplate, args, out _resultTemplate, out _resultArgs);
+
+            /* Assert */
+            Assert.That(result, Is.True);
+            Assert.That(_resultTemplate, Is.EqualTo(expectedTemplate));
         }
     }
 }
