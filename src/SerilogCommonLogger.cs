@@ -26,10 +26,12 @@ namespace Common.Logging.Serilog
     public class SerilogCommonLogger : ILog
     {
         readonly ILogger _logger;
+        private readonly SerilogPreformatter _preformatter;
 
         public SerilogCommonLogger(ILogger logger)
         {
             _logger = logger;
+            _preformatter = new SerilogPreformatter();
         }
 
         public bool IsDebugEnabled
@@ -597,22 +599,10 @@ namespace Common.Logging.Serilog
         {
             if (formatProvider == null)
             {
-                // check for non-value types and enable deconstruction on them...
-                List<KeyValuePair<string, string>> replaceParameters =
-                    parameters.Select((p, i) => new { Param = p, Index = i })
-                        .Where(p => p != null && !p.GetType().IsValueType)
-                        .Select(
-                            p =>
-                            new KeyValuePair<string, string>(string.Format("{{{0}}}", p.Index),
-                                string.Format("{{@{0}}}", p.Index)))
-                        .ToList();
-
-                // replace format strings {0} with {@0}.
-                // not very fast, but simple at least.
-                message = replaceParameters.Aggregate(message,
-                    (current, replace) => current.Replace(replace.Key, replace.Value));
-
-                _logger.Write(level.ToSerilogEventLevel(), exception, message, parameters);
+                string serilogTemplate;
+                object[] serilogArgs;
+                _preformatter.TryPreformat(message, parameters, out serilogTemplate, out serilogArgs);
+                _logger.Write(level.ToSerilogEventLevel(), exception, serilogTemplate, serilogArgs);
             }
             else
                 Write(level, exception, string.Format(formatProvider, message, parameters));
