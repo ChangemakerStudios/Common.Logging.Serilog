@@ -29,20 +29,11 @@ namespace Common.Logging.Serilog
             return true;
         }
 
-        internal IEnumerable<int> GetIndecesOfNumericalFormatting(string templateString)
         {
-            var matches = _numericFormattedRegex.Matches(templateString);
-
-            for (var i = 0; i < matches.Count; i++)
-            {
-                var numericMatch = matches[i].Groups
                     .OfType<Group>()
                     .Skip(1)
                     .First()
                     .Value;
-
-                yield return int.Parse(numericMatch);
-            }
         }
     }
 }

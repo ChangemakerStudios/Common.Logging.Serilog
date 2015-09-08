@@ -61,34 +61,7 @@ namespace Common.Logging.Serilog.Tests
             Assert.That(_resultTemplate, Is.EqualTo(expected));
         }
 
-        public class When_Calling_GetIndecesOfNumericalFormatting : SerilogPreformatterTests
         {
-            [Test]
-            public void Should_Return_Empty_List_If_Template_String_Is_Not_Formatted()
-            {
-                /* Setup */
-                const string originalTemplate = "This is a template without any args";
-
-                /* Test */
-                var result = _preformatter.GetIndecesOfNumericalFormatting(originalTemplate);
-
-                /* Assert */
-                Assert.That(result, Is.Empty);
-            }
-
-            [TestCase("A pure numeric string with {0} and {1}.", new[] {0,1})]
-            [TestCase("A pure {@Serilog} formatted string", new int[0])]
-            [TestCase("A mixed string with both {@Seri} and numeric {1} formatting", new[] {1})]
-            [TestCase("A string with {1}, {10} and {100}", new[] {1, 10, 100})]
-            public void Should_Return_Expected_Indeces(string originalTemplate, int[] expectedResult)
-            {
-                /* Setup */
-                /* Test */
-                var result = _preformatter.GetIndecesOfNumericalFormatting(originalTemplate);
-
-                /* Assert */
-                Assert.That(result, Is.EquivalentTo(expectedResult));
-            }
         }
     }
 }
