@@ -37,7 +37,7 @@ namespace Common.Logging.Serilog
                 templateBuilder.Remove(currentMatcher.Index, currentMatcher.Length);
                 templateBuilder.Insert(currentMatcher.Index, currentArg);
 
-                numericArgs.Add(numericArgs);
+                numericArgs.Add(currentArg);
             }
 
             newTemplate = templateBuilder.ToString();

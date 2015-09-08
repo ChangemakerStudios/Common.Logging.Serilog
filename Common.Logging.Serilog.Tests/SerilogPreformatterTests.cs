@@ -91,6 +91,8 @@ namespace Common.Logging.Serilog.Tests
             /* Assert */
             Assert.That(result, Is.True);
             Assert.That(_resultTemplate, Is.EqualTo(expectedTemplate));
+            Assert.That(_resultArgs.Length, Is.EqualTo(1));
+            Assert.That(_resultArgs[0], Is.EqualTo(args[0]));
         }
     }
 }
