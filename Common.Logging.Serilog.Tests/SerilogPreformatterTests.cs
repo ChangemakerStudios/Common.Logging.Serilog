@@ -49,7 +49,7 @@ namespace Common.Logging.Serilog.Tests
         public void Should_Format_Entire_String_If_Only_Numeric_Formatting_Is_Used()
         {
             /* Setup */
-            const string originalTemplate = "Look at this,a {0} formatted string!";
+            const string originalTemplate = "Look at this, a {0} formatted string!";
             var args = new object[] {"nicely "};
             var expected = string.Format(originalTemplate, args);
 
@@ -59,6 +59,35 @@ namespace Common.Logging.Serilog.Tests
             /* Assert */
             Assert.That(result, Is.True);
             Assert.That(_resultTemplate, Is.EqualTo(expected));
+        }
+
+        public class When_Calling_GetIndecesOfNumericalFormatting : SerilogPreformatterTests
+        {
+            [Test]
+            public void Should_Return_Empty_List_If_Template_String_Is_Not_Formatted()
+            {
+                /* Setup */
+                const string originalTemplate = "This is a template without any args";
+
+                /* Test */
+                var result = _preformatter.GetIndecesOfNumericalFormatting(originalTemplate);
+
+                /* Assert */
+                Assert.That(result, Is.Empty);
+            }
+
+            [TestCase("A pure numeric string with {0} and {1}.", new[] {0,1})]
+            [TestCase("A pure {@Serilog} formatted string", new int[0])]
+            [TestCase("A mixed string with both {@Seri} and numeric {1} formatting", new[] {1})]
+            public void Should_Return_Expected_Indeces(string originalTemplate, int[] expectedResult)
+            {
+                /* Setup */
+                /* Test */
+                var result = _preformatter.GetIndecesOfNumericalFormatting(originalTemplate);
+
+                /* Assert */
+                Assert.That(result, Is.EquivalentTo(expectedResult));
+            }
         }
     }
 }
