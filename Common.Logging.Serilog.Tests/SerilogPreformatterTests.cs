@@ -94,5 +94,21 @@ namespace Common.Logging.Serilog.Tests
             Assert.That(_resultArgs.Length, Is.EqualTo(1));
             Assert.That(_resultArgs[0], Is.EqualTo(args[0]));
         }
+
+        [Test]
+        public void Should_Be_Able_To_Correct_Format_Numeric_String_With_Several_Arguments()
+        {
+            /* Setup */
+            const string originalTemplate = "Look at this, a {0} formatted string with {1} arguments!";
+            var args = new object[] { "nicely", "2" };
+            var expected = string.Format(originalTemplate, args);
+
+            /* Test */
+            var result = _preformatter.TryPreformat(originalTemplate, args, out _resultTemplate, out _resultArgs);
+
+            /* Assert */
+            Assert.That(result, Is.True);
+            Assert.That(_resultTemplate, Is.EqualTo(expected));
+        }
     }
 }
