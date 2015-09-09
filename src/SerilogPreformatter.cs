@@ -28,7 +28,7 @@ namespace Common.Logging.Serilog
             var numericArgs = new List<object>();
             var matches = _numericFormattedRegex.Matches(templateString);
 
-            for (var i = 0; i < matches.Count; i++)
+            for (var i = matches.Count - 1; i >= 0; i--)
             {
                 var currentMatcher = matches[i];
                 var argPosition = GetArgumentPosition(currentMatcher);
