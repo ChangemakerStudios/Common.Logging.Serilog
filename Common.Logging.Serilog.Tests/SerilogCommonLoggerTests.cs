@@ -99,6 +99,31 @@ namespace Common.Logging.Serilog.Tests
 
 
         [Test]
+        public void Should_Format_When_Using_Callback_Overload()
+        {
+            /* Setup */
+            const string templateString = "This is a {0} formatted string";
+            var arg = "nummeric";
+            var expectedString = string.Format(templateString, arg);
+
+            _seriLogger
+                .Setup(l => l.Write(
+                        It.IsAny<LogEventLevel>(),
+                        It.IsAny<Exception>(),
+                        expectedString,
+                        It.Is<object[]>(s => !s.Any())
+                    ))
+                .Verifiable();
+
+            /* Test */
+            _commonLogger.Debug(f => f(templateString, arg));
+
+            /* Assert */
+            _seriLogger.VerifyAll();
+        }
+
+
+        [Test]
         public void Should_Preformat_When_Using_Callback_Overload()
         {
             /* Setup */
