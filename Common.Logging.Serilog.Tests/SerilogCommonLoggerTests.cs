@@ -96,5 +96,30 @@ namespace Common.Logging.Serilog.Tests
             /* Assert */
             _seriLogger.VerifyAll();
         }
+
+
+        [Test]
+        public void Should_Preformat_When_Using_Callback_Overload()
+        {
+            /* Setup */
+            const string templateString = "This is a {0} formatted string with {@serilog} args, too";
+            var args = new object[] { "nummeric", new { type = "Serilog" } };
+            const string expectedString = "This is a nummeric formatted string with {@serilog} args, too";
+
+            _seriLogger
+                .Setup(l => l.Write(
+                        It.IsAny<LogEventLevel>(),
+                        It.IsAny<Exception>(),
+                        expectedString,
+                        It.Is<object[]>(s => s.Count() == 1 && s[0] == args[1])
+                    ))
+                .Verifiable();
+
+            /* Test */
+            _commonLogger.Debug(f => f(templateString, args));
+
+            /* Assert */
+            _seriLogger.VerifyAll();
+        }
     }
 }
