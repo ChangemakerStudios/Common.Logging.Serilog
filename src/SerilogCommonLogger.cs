@@ -562,14 +562,15 @@ namespace Common.Logging.Serilog
         {
             var messageHandler = new FormatMessageHandler(delegate(string message, object[] parameters)
             {
-                string formatted = string.Format(formatProvider, message, parameters);
-
                 if (formatProvider == null)
                     WriteFormat(level, exception, message, parameters);
                 else
+                {
+                    string formatted = string.Format(formatProvider, message, parameters);
                     Write(level, exception, formatted);
+                }
 
-                return formatted;
+                return string.Empty; // Not used
             });
 
             return messageHandler;
