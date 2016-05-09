@@ -1,7 +1,7 @@
 Common Logger <-> Serilog
 =====
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0t8oqa6n5bu2t3qa/branch/master?svg=true)](https://ci.appveyor.com/project/Jaben/common-logging-serilog/branch/master)
+[![NuGet version](https://badge.fury.io/nu/Common.Logging.Serilog.svg)](https://badge.fury.io/nu/Common.Logging.Serilog) [![Build status](https://ci.appveyor.com/api/projects/status/0t8oqa6n5bu2t3qa/branch/master?svg=true)](https://ci.appveyor.com/project/Jaben/common-logging-serilog/branch/master)
 
 Provides a bridge from the old to the new logging systems.
 
