@@ -25,9 +25,8 @@ namespace Common.Logging.Serilog
             }
             
             var templateBuilder = new StringBuilder(templateString);
-            var numericArgs = new List<object>();
+            var filteredArgs = new List<object>(args);
             var matches = _numericFormattedRegex.Matches(templateString);
-
             for (var i = matches.Count - 1; i >= 0; i--)
             {
                 var currentMatcher = matches[i];
@@ -37,13 +36,11 @@ namespace Common.Logging.Serilog
                 templateBuilder.Remove(currentMatcher.Index, currentMatcher.Length);
                 templateBuilder.Insert(currentMatcher.Index, currentArg);
 
-                numericArgs.Add(currentArg);
+                filteredArgs.RemoveAt(argPosition);
             }
 
             newTemplate = templateBuilder.ToString();
-            newArgs = args
-                .Except(numericArgs)
-                .ToArray();
+            newArgs = filteredArgs.ToArray();
 
             return true;
         }
