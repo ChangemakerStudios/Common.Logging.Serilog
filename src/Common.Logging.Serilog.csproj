@@ -58,6 +58,7 @@
     <Compile Include="SerilogFactoryAdapter.cs" />
     <Compile Include="SerilogInstanceWrapper.cs" />
     <Compile Include="SerilogPreformatter.cs" />
+    <Compile Include="SerilogVariableContextEnricher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

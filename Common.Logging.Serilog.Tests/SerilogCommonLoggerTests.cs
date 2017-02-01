@@ -3,6 +3,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 
 namespace Common.Logging.Serilog.Tests
@@ -17,11 +18,11 @@ namespace Common.Logging.Serilog.Tests
         public void Setup()
         {
             _seriLogger = new Mock<ILogger>();
-            _commonLogger = new SerilogCommonLogger(_seriLogger.Object);
 
-            _seriLogger
-                .Setup(l => l.IsEnabled(It.IsAny<LogEventLevel>()))
-                .Returns(true);
+            this._seriLogger.Setup(s => s.ForContext(It.IsAny<ILogEventEnricher>())).Returns(this._seriLogger.Object);
+            this._seriLogger.Setup(l => l.IsEnabled(It.IsAny<LogEventLevel>())).Returns(true);
+
+            _commonLogger = new SerilogCommonLogger(_seriLogger.Object);
         }
 
         [Test]

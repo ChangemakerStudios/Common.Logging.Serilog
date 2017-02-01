@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerilogCommonLoggerTests.cs" />
     <Compile Include="SerilogPreformatterTests.cs" />
+    <Compile Include="SerilogVariableEnricherTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

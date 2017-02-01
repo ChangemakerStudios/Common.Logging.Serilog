@@ -1,23 +1,11 @@
-﻿// Copyright 2014 CaptiveAire Systems
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+﻿// Common.Logging.Serilog - Copyright (c) 2017 CaptiveAire
+
+using System;
+
+using Serilog;
 
 namespace Common.Logging.Serilog
 {
-    using System;
-
-    using global::Serilog;
-
     /// <summary>
     ///     Serilog common logger.
     /// </summary>
@@ -28,7 +16,7 @@ namespace Common.Logging.Serilog
 
         public SerilogCommonLogger(ILogger logger)
         {
-            _logger = logger;
+            _logger = logger.ForContext(new SerilogVariableContextEnricher());
             _preformatter = new SerilogPreformatter();
         }
 
@@ -61,17 +49,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteFormat(LogLevel.Trace, formatProvider, format, args);
         }
 
-        public virtual void TraceFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void TraceFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteFormat(LogLevel.Trace, exception, formatProvider, format, args);
         }
 
@@ -79,6 +65,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteFormat(LogLevel.Trace, format, args);
         }
 
@@ -86,6 +73,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteFormat(LogLevel.Trace, exception, format, args);
         }
 
@@ -93,6 +81,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteCallback(LogLevel.Trace, formatMessageCallback);
         }
 
@@ -100,6 +89,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteCallback(LogLevel.Trace, formatMessageCallback, exception);
         }
 
@@ -107,16 +97,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteCallback(LogLevel.Trace, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Trace(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsTraceEnabled)
                 return;
+
             WriteCallback(LogLevel.Trace, formatProvider, formatMessageCallback, exception);
         }
 
@@ -124,6 +113,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             Write(LogLevel.Debug, message);
         }
 
@@ -131,6 +121,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             Write(LogLevel.Debug, exception, message);
         }
 
@@ -138,17 +129,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteFormat(LogLevel.Debug, formatProvider, format, args);
         }
 
-        public virtual void DebugFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void DebugFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteFormat(LogLevel.Debug, exception, formatProvider, format, args);
         }
 
@@ -156,6 +145,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteFormat(LogLevel.Debug, format, args);
         }
 
@@ -163,6 +153,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteFormat(LogLevel.Debug, exception, format, args);
         }
 
@@ -170,6 +161,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteCallback(LogLevel.Debug, formatMessageCallback);
         }
 
@@ -177,6 +169,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteCallback(LogLevel.Debug, formatMessageCallback, exception);
         }
 
@@ -184,16 +177,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteCallback(LogLevel.Debug, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Debug(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Debug(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsDebugEnabled)
                 return;
+
             WriteCallback(LogLevel.Debug, formatProvider, formatMessageCallback, exception);
         }
 
@@ -201,6 +193,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             Write(LogLevel.Info, message);
         }
 
@@ -208,6 +201,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             Write(LogLevel.Info, exception, message);
         }
 
@@ -215,17 +209,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteFormat(LogLevel.Info, formatProvider, format, args);
         }
 
-        public virtual void InfoFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void InfoFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteFormat(LogLevel.Info, exception, formatProvider, format, args);
         }
 
@@ -233,6 +225,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteFormat(LogLevel.Info, format, args);
         }
 
@@ -240,6 +233,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteFormat(LogLevel.Info, exception, format, args);
         }
 
@@ -247,6 +241,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteCallback(LogLevel.Info, formatMessageCallback);
         }
 
@@ -254,6 +249,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteCallback(LogLevel.Info, formatMessageCallback, exception);
         }
 
@@ -261,16 +257,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteCallback(LogLevel.Info, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Info(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Info(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsInfoEnabled)
                 return;
+
             WriteCallback(LogLevel.Info, formatProvider, formatMessageCallback, exception);
         }
 
@@ -278,6 +273,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             Write(LogLevel.Warn, message);
         }
 
@@ -285,6 +281,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             Write(LogLevel.Warn, exception, message);
         }
 
@@ -292,17 +289,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteFormat(LogLevel.Warn, formatProvider, format, args);
         }
 
-        public virtual void WarnFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void WarnFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteFormat(LogLevel.Warn, exception, formatProvider, format, args);
         }
 
@@ -310,6 +305,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteFormat(LogLevel.Warn, format, args);
         }
 
@@ -317,6 +313,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteFormat(LogLevel.Warn, exception, format, args);
         }
 
@@ -324,6 +321,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteCallback(LogLevel.Warn, formatMessageCallback);
         }
 
@@ -331,6 +329,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteCallback(LogLevel.Warn, formatMessageCallback, exception);
         }
 
@@ -338,16 +337,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteCallback(LogLevel.Warn, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Warn(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Warn(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsWarnEnabled)
                 return;
+
             WriteCallback(LogLevel.Warn, formatProvider, formatMessageCallback, exception);
         }
 
@@ -355,6 +353,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             Write(LogLevel.Error, message);
         }
 
@@ -362,6 +361,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             Write(LogLevel.Error, exception, message);
         }
 
@@ -369,17 +369,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteFormat(LogLevel.Error, formatProvider, format, args);
         }
 
-        public virtual void ErrorFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void ErrorFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteFormat(LogLevel.Error, exception, formatProvider, format, args);
         }
 
@@ -387,6 +385,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteFormat(LogLevel.Error, format, args);
         }
 
@@ -394,6 +393,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteFormat(LogLevel.Error, exception, format, args);
         }
 
@@ -401,6 +401,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteCallback(LogLevel.Error, formatMessageCallback);
         }
 
@@ -408,6 +409,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteCallback(LogLevel.Error, formatMessageCallback, exception);
         }
 
@@ -415,16 +417,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteCallback(LogLevel.Error, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Error(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Error(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsErrorEnabled)
                 return;
+
             WriteCallback(LogLevel.Error, formatProvider, formatMessageCallback, exception);
         }
 
@@ -432,6 +433,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             Write(LogLevel.Fatal, message);
         }
 
@@ -439,6 +441,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             Write(LogLevel.Fatal, exception, message);
         }
 
@@ -446,17 +449,15 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteFormat(LogLevel.Fatal, formatProvider, format, args);
         }
 
-        public virtual void FatalFormat(
-            IFormatProvider formatProvider,
-            string format,
-            Exception exception,
-            params object[] args)
+        public virtual void FatalFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteFormat(LogLevel.Fatal, exception, formatProvider, format, args);
         }
 
@@ -464,6 +465,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteFormat(LogLevel.Fatal, format, args);
         }
 
@@ -471,6 +473,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteFormat(LogLevel.Fatal, exception, format, args);
         }
 
@@ -478,6 +481,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteCallback(LogLevel.Fatal, formatMessageCallback);
         }
 
@@ -485,6 +489,7 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteCallback(LogLevel.Fatal, formatMessageCallback, exception);
         }
 
@@ -492,18 +497,27 @@ namespace Common.Logging.Serilog
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteCallback(LogLevel.Fatal, formatProvider, formatMessageCallback);
         }
 
-        public virtual void Fatal(
-            IFormatProvider formatProvider,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception)
+        public virtual void Fatal(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             if (!IsFatalEnabled)
                 return;
+
             WriteCallback(LogLevel.Fatal, formatProvider, formatMessageCallback, exception);
         }
+
+        /// <summary>
+        /// Returns the global context for variables
+        /// </summary>
+        public virtual IVariablesContext GlobalVariablesContext => SerilogVariableContextEnricher.GlobalVariablesContext;
+
+        /// <summary>
+        /// Returns the thread-specific context for variables
+        /// </summary>
+        public virtual IVariablesContext ThreadVariablesContext => SerilogVariableContextEnricher.ThreadLocal.Value;
 
         protected void Write(LogLevel level, object message)
         {
@@ -518,10 +532,7 @@ namespace Common.Logging.Serilog
                 _logger.Write(level.ToSerilogEventLevel(), exception, "{@Message}", message);
         }
 
-        protected void WriteCallback(
-            LogLevel level,
-            Action<FormatMessageHandler> formatMessageCallback,
-            Exception exception = null)
+        protected void WriteCallback(LogLevel level, Action<FormatMessageHandler> formatMessageCallback, Exception exception = null)
         {
             WriteCallback(level, null, formatMessageCallback, exception);
         }
@@ -535,22 +546,20 @@ namespace Common.Logging.Serilog
             formatMessageCallback(MakeFormatted(level, formatProvider, exception));
         }
 
-        protected FormatMessageHandler MakeFormatted(
-            LogLevel level,
-            IFormatProvider formatProvider,
-            Exception exception)
+        protected FormatMessageHandler MakeFormatted(LogLevel level, IFormatProvider formatProvider, Exception exception)
         {
-            var messageHandler = new FormatMessageHandler(delegate(string message, object[] parameters)
-            {
-                string formatted = string.Format(formatProvider, message, parameters);
+            var messageHandler = new FormatMessageHandler(
+                delegate(string message, object[] parameters)
+                    {
+                        string formatted = string.Format(formatProvider, message, parameters);
 
-                if (formatProvider == null)
-                    WriteFormat(level, exception, message, parameters);
-                else
-                    Write(level, exception, formatted);
+                        if (formatProvider == null)
+                            WriteFormat(level, exception, message, parameters);
+                        else
+                            Write(level, exception, formatted);
 
-                return formatted;
-            });
+                        return formatted;
+                    });
 
             return messageHandler;
         }
@@ -570,12 +579,7 @@ namespace Common.Logging.Serilog
             WriteFormat(level, null, null, message, parameters);
         }
 
-        protected void WriteFormat(
-            LogLevel level,
-            Exception exception,
-            IFormatProvider formatProvider,
-            string message,
-            object[] parameters)
+        protected void WriteFormat(LogLevel level, Exception exception, IFormatProvider formatProvider, string message, object[] parameters)
         {
             if (formatProvider == null)
             {
@@ -588,15 +592,6 @@ namespace Common.Logging.Serilog
                 Write(level, exception, string.Format(formatProvider, message, parameters));
         }
 
-
-        /// <summary>
-        /// Returns the global context for variables
-        /// </summary>
-        public virtual IVariablesContext GlobalVariablesContext => new Simple.NoOpVariablesContext();
-
-        /// <summary>
-        /// Returns the thread-specific context for variables
-        /// </summary>
-        public virtual IVariablesContext ThreadVariablesContext => new Simple.NoOpVariablesContext();
+        
     }
 }
