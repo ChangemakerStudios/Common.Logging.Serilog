@@ -15,8 +15,6 @@
 namespace Common.Logging.Serilog
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     using global::Serilog;
 
@@ -26,7 +24,7 @@ namespace Common.Logging.Serilog
     public class SerilogCommonLogger : ILog
     {
         readonly ILogger _logger;
-        private readonly SerilogPreformatter _preformatter;
+        readonly SerilogPreformatter _preformatter;
 
         public SerilogCommonLogger(ILogger logger)
         {
@@ -34,35 +32,17 @@ namespace Common.Logging.Serilog
             _preformatter = new SerilogPreformatter();
         }
 
-        public bool IsDebugEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Debug.ToSerilogEventLevel()); }
-        }
+        public bool IsDebugEnabled => this._logger.IsEnabled(LogLevel.Debug.ToSerilogEventLevel());
 
-        public bool IsErrorEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Error.ToSerilogEventLevel()); }
-        }
+        public bool IsErrorEnabled => this._logger.IsEnabled(LogLevel.Error.ToSerilogEventLevel());
 
-        public bool IsFatalEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Fatal.ToSerilogEventLevel()); }
-        }
+        public bool IsFatalEnabled => this._logger.IsEnabled(LogLevel.Fatal.ToSerilogEventLevel());
 
-        public bool IsInfoEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Info.ToSerilogEventLevel()); }
-        }
+        public bool IsInfoEnabled => this._logger.IsEnabled(LogLevel.Info.ToSerilogEventLevel());
 
-        public bool IsTraceEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Trace.ToSerilogEventLevel()); }
-        }
+        public bool IsTraceEnabled => this._logger.IsEnabled(LogLevel.Trace.ToSerilogEventLevel());
 
-        public bool IsWarnEnabled
-        {
-            get { return _logger.IsEnabled(LogLevel.Warn.ToSerilogEventLevel()); }
-        }
+        public bool IsWarnEnabled => this._logger.IsEnabled(LogLevel.Warn.ToSerilogEventLevel());
 
         public virtual void Trace(object message)
         {
@@ -612,17 +592,11 @@ namespace Common.Logging.Serilog
         /// <summary>
         /// Returns the global context for variables
         /// </summary>
-        public virtual IVariablesContext GlobalVariablesContext
-        {
-            get { return new Simple.NoOpVariablesContext(); }
-        }
+        public virtual IVariablesContext GlobalVariablesContext => new Simple.NoOpVariablesContext();
 
         /// <summary>
         /// Returns the thread-specific context for variables
         /// </summary>
-        public virtual IVariablesContext ThreadVariablesContext
-        {
-            get { return new Simple.NoOpVariablesContext(); }
-        }
+        public virtual IVariablesContext ThreadVariablesContext => new Simple.NoOpVariablesContext();
     }
 }

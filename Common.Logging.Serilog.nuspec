@@ -10,7 +10,6 @@
         <iconUrl>http://serilog.net/images/serilog-nuget.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Easily bridge the old with the new and shiny: Common Logging adapter for Serilog structured logging.</description>
-        <releaseNotes>v3.1: Updated Common Logging and Serilog references.</releaseNotes>
         <language>en-US</language>
         <tags>serilog common logging adapter json structured</tags>
         <dependencies>
