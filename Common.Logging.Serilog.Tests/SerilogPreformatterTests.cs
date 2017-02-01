@@ -110,5 +110,22 @@ namespace Common.Logging.Serilog.Tests
             Assert.That(result, Is.True);
             Assert.That(_resultTemplate, Is.EqualTo(expected));
         }
+
+        [TestCase("Two different numbers {Number1} and {Number2}!", new object[] { 0, 1 },
+                  "Two different numbers {Number1} and {Number2}!", new object[] { 0, 1 })]
+        [TestCase("Two duplicate numbers {Number1} and {Number2}!", new object[] { 1, 1 },
+                  "Two duplicate numbers {Number1} and {Number2}!", new object[] { 1, 1 })]
+        [TestCase("Three numbers, only one unique {Number1}, not {1}, and {Number2}!", new object[] { 0, 42, 0 },
+                  "Three numbers, only one unique {Number1}, not 42, and {Number2}!", new object[] { 0, 0 })]
+        public void Should_Be_Able_To_Correct_Format_Duplicate_Arguments(string originalTemplate, object[] args, string expectedResultTemplate, object[] expectedArgs)
+        {
+            /* Test */
+            var result = _preformatter.TryPreformat(originalTemplate, args, out _resultTemplate, out _resultArgs);
+
+            /* Assert */
+            Assert.That(result, Is.True);
+            Assert.That(_resultTemplate, Is.EqualTo(expectedResultTemplate));
+            Assert.That(_resultArgs, Is.EquivalentTo(expectedArgs));
+        }
     }
 }
