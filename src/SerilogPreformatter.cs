@@ -40,7 +40,7 @@ namespace Common.Logging.Serilog
             }
             
             var templateBuilder = new StringBuilder(templateString);
-            var filteredArgs = new List<object>(args);
+            var numericArgPositions = new HashSet<int>();
             var matches = _numericFormattedRegex.Matches(templateString);
 
             for (var i = matches.Count - 1; i >= 0; i--)
@@ -52,12 +52,11 @@ namespace Common.Logging.Serilog
                 templateBuilder.Remove(currentMatcher.Index, currentMatcher.Length);
                 templateBuilder.Insert(currentMatcher.Index, currentArg);
 
-                filteredArgs.RemoveAt(argPosition);
+                numericArgPositions.Add(argPosition);
             }
 
             newTemplate = templateBuilder.ToString();
-            newArgs = filteredArgs.ToArray();
-
+            newArgs = RemoveItemsAtPositions(args, numericArgPositions);
             return true;
         }
 
@@ -67,6 +66,19 @@ namespace Common.Logging.Serilog
                 throw new ArgumentNullException(nameof(currentMatcher));
 
             return int.Parse(currentMatcher.Groups.OfType<Group>().Skip(1).First().Value);
+        }
+
+        private static object[] RemoveItemsAtPositions(object[] args, ISet<int> numericArgPositions)
+        {
+            var result = new List<object>();
+            for (int position = 0; position < args.Length; position++)
+            {
+                if (!numericArgPositions.Contains(position))
+                {
+                    result.Add(args[position]);
+                }
+            }
+            return result.ToArray();
         }
     }
 }

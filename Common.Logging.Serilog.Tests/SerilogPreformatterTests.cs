@@ -117,7 +117,11 @@ namespace Common.Logging.Serilog.Tests
                   "Two duplicate numbers {Number1} and {Number2}!", new object[] { 1, 1 })]
         [TestCase("Three numbers, only one unique {Number1}, not {1}, and {Number2}!", new object[] { 0, 42, 0 },
                   "Three numbers, only one unique {Number1}, not 42, and {Number2}!", new object[] { 0, 0 })]
-        public void Should_Be_Able_To_Correct_Format_Duplicate_Arguments(string originalTemplate, object[] args, string expectedResultTemplate, object[] expectedArgs)
+        [TestCase("Reverse order numbers: {1} and {0}!", new object[] { 0, 1 },
+                  "Reverse order numbers: 1 and 0!", new object[0])]
+        [TestCase("Same number twice: {0} and {0}!", new object[] { 0 },
+                  "Same number twice: 0 and 0!", new object[0])]
+        public void Should_Be_Able_To_Correct_Format_Numeric_Arguments(string originalTemplate, object[] args, string expectedResultTemplate, object[] expectedArgs)
         {
             /* Test */
             var result = _preformatter.TryPreformat(originalTemplate, args, out _resultTemplate, out _resultArgs);
