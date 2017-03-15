@@ -9,7 +9,7 @@ Provides a bridge from the old to the new logging systems.
 
 ### Configure app.config/web.config file of your project:
 
-```
+```xml
 <configSections>
 	<sectionGroup name="common">
 		<section name="logging" type="Common.Logging.ConfigurationSectionHandler, Common.Logging" />
@@ -25,7 +25,7 @@ Provides a bridge from the old to the new logging systems.
 
 You must configure and provide a global logger to use this adapter:
 
-```
+```csharp
 var log = new LoggerConfiguration()
     .WriteTo.ColoredConsole()
     .CreateLogger();
