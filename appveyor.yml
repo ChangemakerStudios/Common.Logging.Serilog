@@ -1,5 +1,4 @@
-﻿version: 4.1.{build}
-platform: Any CPU
+﻿platform: Any CPU
 configuration: Release
 
 assembly_info:
