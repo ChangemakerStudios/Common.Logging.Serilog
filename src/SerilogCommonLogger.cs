@@ -2,6 +2,8 @@
 
 using System;
 
+using Common.Logging.Simple;
+
 using Serilog;
 
 namespace Common.Logging.Serilog
@@ -518,6 +520,11 @@ namespace Common.Logging.Serilog
         /// Returns the thread-specific context for variables
         /// </summary>
         public virtual IVariablesContext ThreadVariablesContext => SerilogVariableContextEnricher.ThreadLocal.Value;
+
+        /// <summary>
+        /// Returns the thread-specific context for nested variables (for NDC, eg.)
+        /// </summary>
+        public INestedVariablesContext NestedThreadVariablesContext { get; } = new NoOpNestedVariablesContext();
 
         protected void Write(LogLevel level, object message)
         {
