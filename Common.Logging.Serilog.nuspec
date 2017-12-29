@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Common.Logging.Serilog</id>
-        <version>4.3.0</version>
+        <version>4.4.0</version>
         <authors>CaptiveAire Systems</authors>
         <owners>Jaben Cargman</owners>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -21,7 +21,9 @@
     <files>
         <file src="content\app.config.transform" target="content\app.config.transform" />
         <file src="content\web.config.transform" target="content\web.config.transform" />
-        <file src="src\bin\Release\Common.Logging.Serilog.dll" target="lib\net45\Common.Logging.Serilog.dll" />
-        <file src="src\bin\Release\Common.Logging.Serilog.pdb" target="lib\net45\Common.Logging.Serilog.pdb" />
+        <file src="src\bin\Release\net461\Common.Logging.Serilog.dll" target="lib\net461\Common.Logging.Serilog.dll" />
+        <file src="src\bin\Release\net461\Common.Logging.Serilog.pdb" target="lib\net461\Common.Logging.Serilog.pdb" />
+		<file src="src\bin\Release\netstandard2.0\Common.Logging.Serilog.dll" target="lib\netstandard2.0\Common.Logging.Serilog.dll" />
+        <file src="src\bin\Release\netstandard2.0\Common.Logging.Serilog.pdb" target="lib\netstandard2.0\Common.Logging.Serilog.pdb" />
     </files>
 </package>
