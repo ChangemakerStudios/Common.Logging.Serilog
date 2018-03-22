@@ -65,7 +65,7 @@ namespace Common.Logging.Serilog
         /// </returns>
         public ILog GetLogger(string name)
         {
-            return new SerilogCommonLogger(new SerilogInstanceWrapper(l => l.ForContext("NamedContext", name), _logger));
+            return new SerilogCommonLogger(new SerilogInstanceWrapper(l => l.ForContext("SourceContext", name), _logger));
         }
     }
 }
