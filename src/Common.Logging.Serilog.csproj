@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description></Description>
     <AssemblyTitle>Common.Logging.Serilog</AssemblyTitle>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
     <AssemblyProduct>Common.Logging.Serilog</AssemblyProduct>
     <AssemblyCopyright>Copyright © CaptiveAire Systems 2015-2017</AssemblyCopyright>
     <InternalsVisibleTo>Common.Logging.Serilog.Tests</InternalsVisibleTo>
