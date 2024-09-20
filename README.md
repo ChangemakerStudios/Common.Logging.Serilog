@@ -1,40 +1,75 @@
-Common Logger <-> Serilog
+Common.Logging.Serilog
 =====
 
 [![NuGet version](https://badge.fury.io/nu/Common.Logging.Serilog.svg)](https://badge.fury.io/nu/Common.Logging.Serilog) [![Build status](https://ci.appveyor.com/api/projects/status/0t8oqa6n5bu2t3qa/branch/master?svg=true)](https://ci.appveyor.com/project/Jaben/common-logging-serilog/branch/master)
 
-Provides a bridge from the old to the new logging systems.
+*Common.Logging.Serilog* is an adapter that bridges the [Common.Logging](https://netcommon.sourceforge.net/) abstraction with [Serilog](https://serilog.net/), allowing you to use Serilog as the underlying logging framework in applications that rely on Common.Logging.
 
-### Usage
+## Installation
 
-### Configure app.config/web.config file of your project:
+Install the package via NuGet Package Manager:
+
+```shell
+Install-Package Common.Logging.Serilog
+```
+
+Or using the .NET CLI:
+
+```shell
+dotnet add package Common.Logging.Serilog
+```
+
+## Getting Started
+
+### Configuring Common.Logging
+
+Update your `app.config` or `web.config` file to use the Serilog factory adapter:
 
 ```xml
-<configSections>
-	<sectionGroup name="common">
-		<section name="logging" type="Common.Logging.ConfigurationSectionHandler, Common.Logging" />
-	</sectionGroup>
-</configSections>
+<configuration>
+  <configSections>
+    <sectionGroup name="common">
+      <section name="logging" type="Common.Logging.ConfigurationSectionHandler, Common.Logging" />
+    </sectionGroup>
+  </configSections>
 
-<common>
-	<logging>
-  		<factoryAdapter type="Common.Logging.Serilog.SerilogFactoryAdapter, Common.Logging.Serilog" />
-	</logging>
-</common>
+  <common>
+    <logging>
+      <factoryAdapter type="Common.Logging.Serilog.SerilogFactoryAdapter, Common.Logging.Serilog" />
+    </logging>
+  </common>
+</configuration>
 ```
 
-You must configure and provide a global logger to use this adapter:
+### Setting Up Serilog & Usage Example
+
+Configure Serilog and assign it to the global `Log.Logger` instance:
 
 ```csharp
-var log = new LoggerConfiguration()
-    .WriteTo.ColoredConsole()
-    .CreateLogger();
+using Serilog;
+using Common.Logging;
 
-// set global instance of Serilog logger which Common.Logger.Serilog requires.
-Log.Logger = log;
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Configure Serilog: -- Must set global Log.Logger instance
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
+
+        // Obtain a Common.Logging logger
+        var logger = LogManager.GetLogger<Program>();
+        logger.Info("Application has started.");
+
+        // Your application code here
+
+        // Ensure to flush and close Serilog at the end
+        Log.CloseAndFlush();
+    }
+}
 ```
 
-### Links
+## License
 
-* [Common Logging](http://netcommon.sourceforge.net/ "Common Infrastructure Libraries for .NET")
-* [Serilog Project](http://serilog.net/ "Serilog")
+This project is licensed under the [MIT License](https://mit-license.org/).
