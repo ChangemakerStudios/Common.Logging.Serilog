@@ -8,8 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="PackageInfo">
-		<PackageVersion>5.0.0</PackageVersion>
-
+		<PackageVersion>4.4.0</PackageVersion>			
 		<PackageId>Common.Logging.Serilog</PackageId>
 		<Title>Common.Logging.Serilog</Title>
 		<Authors>CaptiveAire Systems</Authors>
