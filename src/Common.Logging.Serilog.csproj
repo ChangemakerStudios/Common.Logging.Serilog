@@ -1,14 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Description></Description>
-		<AssemblyTitle>Common.Logging.Serilog</AssemblyTitle>
 		<TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
-		<AssemblyProduct>Common.Logging.Serilog</AssemblyProduct>
-		<AssemblyCopyright>Copyright © CaptiveAire Systems 2015-2017</AssemblyCopyright>
 		<InternalsVisibleTo>Common.Logging.Serilog.Tests</InternalsVisibleTo>
-		<AssemblyVersion>5.0.0</AssemblyVersion>
-		<AssemblyFileVersion>5.0.0</AssemblyFileVersion>
 	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<PackageVersion>5.0.0</PackageVersion>
+		
+		<PackageId>Common.Logging.Serilog</PackageId>
+		<Title>Common.Logging.Serilog</Title>
+		<Authors>CaptiveAire Systems</Authors>
+		<Company>CaptiveAire Systems</Company>
+		<Product>Common.Logging.Serilog</Product>
+		<Description>Common.Logging.Serilog is an adapter that bridges the Common.Logging abstraction with Serilog, allowing you to use Serilog as the underlying logging framework in applications that rely on Common.Logging.</Description>
+		<PackageTags>Common.Logging; Serilog; Logging; Adapter; .NET</PackageTags>
+		<PackageProjectUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="PolySharp" Version="1.14.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Common.Logging" Version="3.4.1.0" />
