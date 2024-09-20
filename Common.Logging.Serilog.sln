@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26127.0
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{D6378B
 		content\web.config.transform = content\web.config.transform
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.Serilog.Tests", "Common.Logging.Serilog.Tests\Common.Logging.Serilog.Tests.csproj", "{E7035ACA-D59B-4CA2-9606-E7634C5D590F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Logging.Serilog.Tests", "Common.Logging.Serilog.Tests\Common.Logging.Serilog.Tests.csproj", "{E7035ACA-D59B-4CA2-9606-E7634C5D590F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

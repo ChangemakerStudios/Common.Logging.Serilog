@@ -1,8 +1,20 @@
-﻿using System.Collections;
+﻿// Copyright 2014-2024 CaptiveAire Systems
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-
 using Serilog.Core;
 using Serilog.Events;
 
@@ -10,7 +22,8 @@ namespace Common.Logging.Serilog
 {
     public class SerilogVariableContextEnricher : ILogEventEnricher
     {
-        public static readonly ConcurrentVariableContext GlobalVariablesContext = new ConcurrentVariableContext();
+        public static readonly ConcurrentVariableContext GlobalVariablesContext =
+            new ConcurrentVariableContext();
 
         public static readonly ThreadLocal<ConcurrentVariableContext> ThreadLocal =
             new ThreadLocal<ConcurrentVariableContext>(() => new ConcurrentVariableContext());
@@ -21,15 +34,13 @@ namespace Common.Logging.Serilog
             {
                 // enrich with global variables first...
                 foreach (var globalVar in GlobalVariablesContext.GetAll())
-                {
-                    logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(globalVar.Key, globalVar.Value, true));
-                }
+                    logEvent.AddPropertyIfAbsent(
+                        propertyFactory.CreateProperty(globalVar.Key, globalVar.Value, true));
 
                 // then enrich with the thread varables
                 foreach (var threadVar in ThreadLocal.Value.GetAll())
-                {
-                    logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(threadVar.Key, threadVar.Value, true));
-                }
+                    logEvent.AddPropertyIfAbsent(
+                        propertyFactory.CreateProperty(threadVar.Key, threadVar.Value, true));
             }
             catch
             {
@@ -39,38 +50,39 @@ namespace Common.Logging.Serilog
 
         public class ConcurrentVariableContext : IVariablesContext
         {
-            readonly ConcurrentDictionary<string, object> _variables = new ConcurrentDictionary<string, object>();
-
-            public IReadOnlyList<KeyValuePair<string, object>> GetAll()
-            {
-                return this._variables.ToArray();
-            }
+            private readonly ConcurrentDictionary<string, object> _variables =
+                new ConcurrentDictionary<string, object>();
 
             public void Set(string key, object value)
             {
-                this._variables[key] = value;
+                _variables[key] = value;
             }
 
             public object Get(string key)
             {
                 object value;
-                return this._variables.TryGetValue(key, out value) ? value : null;
+                return _variables.TryGetValue(key, out value) ? value : null;
             }
 
             public bool Contains(string key)
             {
-                return this._variables.ContainsKey(key);
+                return _variables.ContainsKey(key);
             }
 
             public void Remove(string key)
             {
                 object dummy;
-                this._variables.TryRemove(key, out dummy);
+                _variables.TryRemove(key, out dummy);
             }
 
             public void Clear()
             {
-                this._variables.Clear();
+                _variables.Clear();
+            }
+
+            public IReadOnlyList<KeyValuePair<string, object>> GetAll()
+            {
+                return _variables.ToArray();
             }
         }
     }

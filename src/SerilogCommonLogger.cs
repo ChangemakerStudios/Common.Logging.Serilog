@@ -1,4 +1,16 @@
-﻿// Common.Logging.Serilog - Copyright (c) 2017 CaptiveAire
+﻿// Copyright 2014-2024 CaptiveAire Systems
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 using System;
 
@@ -558,12 +570,17 @@ namespace Common.Logging.Serilog
             var messageHandler = new FormatMessageHandler(
                 delegate(string message, object[] parameters)
                     {
-                        string formatted = string.Format(formatProvider, message, parameters);
-
                         if (formatProvider == null)
-                            WriteFormat(level, exception, message, parameters);
-                        else
-                            Write(level, exception, formatted);
+                        {
+                            _preformatter.TryPreformat(message, parameters, out var serilogTemplate, out var serilogArgs);
+                            _logger.Write(level.ToSerilogEventLevel(), exception, serilogTemplate, serilogArgs);
+
+                            return serilogTemplate;
+                        }
+
+                        var formatted = string.Format(formatProvider, message, parameters);
+
+                        Write(level, exception, formatted);
 
                         return formatted;
                     });
@@ -590,9 +607,7 @@ namespace Common.Logging.Serilog
         {
             if (formatProvider == null)
             {
-                string serilogTemplate;
-                object[] serilogArgs;
-                _preformatter.TryPreformat(message, parameters, out serilogTemplate, out serilogArgs);
+                _preformatter.TryPreformat(message, parameters, out var serilogTemplate, out var serilogArgs);
                 _logger.Write(level.ToSerilogEventLevel(), exception, serilogTemplate, serilogArgs);
             }
             else

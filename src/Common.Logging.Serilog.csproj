@@ -1,39 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Description></Description>
-    <AssemblyTitle>Common.Logging.Serilog</AssemblyTitle>
-    <TargetFrameworks>net452;net461;netstandard2.0</TargetFrameworks>
-    <AssemblyProduct>Common.Logging.Serilog</AssemblyProduct>
-    <AssemblyCopyright>Copyright © CaptiveAire Systems 2015-2017</AssemblyCopyright>
-    <InternalsVisibleTo>Common.Logging.Serilog.Tests</InternalsVisibleTo>
-    <AssemblyVersion>4.3.0</AssemblyVersion>
-    <AssemblyFileVersion>4.3.0</AssemblyFileVersion>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Common.Logging" Version="3.4.1.0" />
-    <PackageReference Include="Common.Logging.Core" Version="3.4.1.0" />
-    <PackageReference Include="Serilog" Version="2.0.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description></Description>
+		<AssemblyTitle>Common.Logging.Serilog</AssemblyTitle>
+		<TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+		<AssemblyProduct>Common.Logging.Serilog</AssemblyProduct>
+		<AssemblyCopyright>Copyright © CaptiveAire Systems 2015-2017</AssemblyCopyright>
+		<InternalsVisibleTo>Common.Logging.Serilog.Tests</InternalsVisibleTo>
+		<AssemblyVersion>5.0.0</AssemblyVersion>
+		<AssemblyFileVersion>5.0.0</AssemblyFileVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+	<ItemGroup>
+		<PackageReference Include="Common.Logging" Version="3.4.1.0" />
+		<PackageReference Include="Common.Logging.Core" Version="3.4.1.0" />
+		<PackageReference Include="Serilog" Version="3.1.1" />
+	</ItemGroup>
+
 </Project>
