@@ -31,6 +31,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="content\app.config.transform" Pack="true" PackagePath="\content" />
+	  <None Include="content\web.config.transform" Pack="true" PackagePath="\content" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 		<PackageReference Include="PolySharp" Version="1.14.1">
 			<PrivateAssets>all</PrivateAssets>
