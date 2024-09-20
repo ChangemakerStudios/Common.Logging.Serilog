@@ -187,3 +187,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 *.ncrunchsolution
 /.vs/Common.Logging.Serilog/v15/Server/sqlite3
+.vs
