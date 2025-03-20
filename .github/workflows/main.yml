@@ -23,7 +23,7 @@ jobs:
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v3.1.11
       with:
-        versionSpec: '5.x'
+        versionSpec: '6.0.x'
         
     - name: GitVersion
       id: gitversion
@@ -31,11 +31,11 @@ jobs:
       with:
         useConfigFile: true
 
-    - name: GitVersion
-      uses: gittools/actions/gitversion/command@v3.1.11
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v3.1.11
       with:
-        arguments: '/updateassemblyinfo AssemblyInfo.cs /ensureassemblyinfo'
-
+        updateProjectFiles: true
+        
     - name: Pack
       run: dotnet pack -c Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
         
