@@ -24,7 +24,10 @@ jobs:
       uses: gittools/actions/gitversion/setup@v3.1.11
       with:
         versionSpec: '6.0.x'
-        
+
+    - name: Show GitVersion config
+      run: dotnet-gitversion /showconfig /config gitversion.yml
+
     - name: GitVersion
       id: gitversion
       uses: gittools/actions/gitversion/execute@v3.1.11
