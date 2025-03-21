@@ -33,8 +33,10 @@ jobs:
       uses: gittools/actions/gitversion/execute@v3.1.11
       with:
         useConfigFile: true
-        updateProjectFiles: true
-        
+
+    - name: GitVersion update project files
+      run: dotnet-gitversion /updateprojectfiles
+
     - name: Pack
       run: dotnet pack -c Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
         
