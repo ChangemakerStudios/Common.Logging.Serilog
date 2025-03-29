@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="PackageInfo">
-		<Version>4.5.0</Version>			
+		<Version>5.1.0</Version>			
 		<PackageId>Common.Logging.Serilog</PackageId>
 		<Title>Common.Logging.Serilog</Title>
 		<Authors>CaptiveAire Systems</Authors>
@@ -17,7 +17,7 @@
 		<Description>Common.Logging.Serilog is an adapter that bridges the Common.Logging abstraction with Serilog, allowing you to use Serilog as the underlying logging framework in applications that rely on Common.Logging.</Description>
 		<PackageTags>Common.Logging; Serilog; Logging; Adapter; .NET</PackageTags>
 		<PackageReleaseNotes>
-			v4.5.0 - Targetting .NET 4.6.2. Using Version instead of PackageVersion so assembly version matches.
+			v5.1.0 - Targetting .NET 4.6.2. Using Version instead of PackageVersion so assembly version matches.
 		</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</RepositoryUrl>
