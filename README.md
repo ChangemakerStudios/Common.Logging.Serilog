@@ -1,7 +1,7 @@
 Common.Logging.Serilog
 =====
 
-[![NuGet version](https://badge.fury.io/nu/Common.Logging.Serilog.svg)](https://badge.fury.io/nu/Common.Logging.Serilog) [![Build status](https://ci.appveyor.com/api/projects/status/0t8oqa6n5bu2t3qa/branch/master?svg=true)](https://ci.appveyor.com/project/Jaben/common-logging-serilog/branch/master)
+[![NuGet version](https://badge.fury.io/nu/Common.Logging.Serilog.svg)](https://badge.fury.io/nu/Common.Logging.Serilog) [![Build and Push to Nuget](https://github.com/ChangemakerStudios/Common.Logging.Serilog/actions/workflows/main.yml/badge.svg)](https://github.com/ChangemakerStudios/Common.Logging.Serilog/actions/workflows/main.yml)
 
 *Common.Logging.Serilog* is an adapter that bridges the [Common.Logging](https://netcommon.sourceforge.net/) abstraction with [Serilog](https://serilog.net/), allowing you to use Serilog as the underlying logging framework in applications that rely on Common.Logging.
 

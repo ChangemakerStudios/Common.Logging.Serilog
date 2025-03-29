@@ -13,8 +13,6 @@
 // limitations under the License.
 
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
 
@@ -22,11 +20,10 @@ namespace Common.Logging.Serilog
 {
     public class SerilogVariableContextEnricher : ILogEventEnricher
     {
-        public static readonly ConcurrentVariableContext GlobalVariablesContext =
-            new ConcurrentVariableContext();
+        public static readonly ConcurrentVariableContext GlobalVariablesContext = new();
 
         public static readonly ThreadLocal<ConcurrentVariableContext> ThreadLocal =
-            new ThreadLocal<ConcurrentVariableContext>(() => new ConcurrentVariableContext());
+            new(() => new ConcurrentVariableContext());
 
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
@@ -37,7 +34,7 @@ namespace Common.Logging.Serilog
                     logEvent.AddPropertyIfAbsent(
                         propertyFactory.CreateProperty(globalVar.Key, globalVar.Value, true));
 
-                // then enrich with the thread varables
+                // then enrich with the thread variables
                 foreach (var threadVar in ThreadLocal.Value.GetAll())
                     logEvent.AddPropertyIfAbsent(
                         propertyFactory.CreateProperty(threadVar.Key, threadVar.Value, true));
@@ -50,18 +47,16 @@ namespace Common.Logging.Serilog
 
         public class ConcurrentVariableContext : IVariablesContext
         {
-            private readonly ConcurrentDictionary<string, object> _variables =
-                new ConcurrentDictionary<string, object>();
+            private readonly ConcurrentDictionary<string, object> _variables = new();
 
             public void Set(string key, object value)
             {
                 _variables[key] = value;
             }
 
-            public object Get(string key)
+            public object? Get(string key)
             {
-                object value;
-                return _variables.TryGetValue(key, out value) ? value : null;
+                return _variables.TryGetValue(key, out var value) ? value : null;
             }
 
             public bool Contains(string key)
@@ -71,8 +66,7 @@ namespace Common.Logging.Serilog
 
             public void Remove(string key)
             {
-                object dummy;
-                _variables.TryRemove(key, out dummy);
+                _variables.TryRemove(key, out _);
             }
 
             public void Clear()

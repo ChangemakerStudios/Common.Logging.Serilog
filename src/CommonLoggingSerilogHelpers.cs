@@ -25,23 +25,16 @@ namespace Common.Logging.Serilog
         /// <returns> The level converted. </returns>
         public static LogEventLevel ToSerilogEventLevel(this LogLevel logLevel)
         {
-            LogEventLevel logEventLevel;
-            if (Enum.TryParse(logLevel.ToString(), true, out logEventLevel))
+            if (Enum.TryParse(logLevel.ToString(), true, out LogEventLevel logEventLevel))
                 return logEventLevel;
 
-            switch (logLevel)
+            logEventLevel = logLevel switch
             {
-                case LogLevel.All:
-                case LogLevel.Trace:
-                    logEventLevel = LogEventLevel.Verbose;
-                    break;
-                case LogLevel.Info:
-                    logEventLevel = LogEventLevel.Information;
-                    break;
-                case LogLevel.Warn:
-                    logEventLevel = LogEventLevel.Warning;
-                    break;
-            }
+                LogLevel.All or LogLevel.Trace => LogEventLevel.Verbose,
+                LogLevel.Info => LogEventLevel.Information,
+                LogLevel.Warn => LogEventLevel.Warning,
+                _ => logEventLevel
+            };
 
             return logEventLevel;
         }
