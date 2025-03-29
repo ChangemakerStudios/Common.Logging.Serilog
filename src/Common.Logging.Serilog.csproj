@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
-		<LangVersion>12</LangVersion>
+		<TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+		<LangVersion>13</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<InternalsVisibleTo>Common.Logging.Serilog.Tests</InternalsVisibleTo>
 	</PropertyGroup>
 
 	<PropertyGroup Label="PackageInfo">
-		<PackageVersion>4.4.0</PackageVersion>			
+		<Version>4.5.0</Version>			
 		<PackageId>Common.Logging.Serilog</PackageId>
 		<Title>Common.Logging.Serilog</Title>
 		<Authors>CaptiveAire Systems</Authors>
@@ -16,6 +16,9 @@
 		<Product>Common.Logging.Serilog</Product>
 		<Description>Common.Logging.Serilog is an adapter that bridges the Common.Logging abstraction with Serilog, allowing you to use Serilog as the underlying logging framework in applications that rely on Common.Logging.</Description>
 		<PackageTags>Common.Logging; Serilog; Logging; Adapter; .NET</PackageTags>
+		<PackageReleaseNotes>
+			v4.5.0 - Targetting .NET 4.6.2. Using Version instead of PackageVersion so assembly version matches.
+		</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ChangemakerStudios/Common.Logging.Serilog</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -37,7 +40,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-		<PackageReference Include="PolySharp" Version="1.14.1">
+		<PackageReference Include="PolySharp" Version="1.15.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

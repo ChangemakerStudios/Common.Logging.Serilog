@@ -22,7 +22,7 @@ namespace Common.Logging.Serilog
 {
     public class SerilogPreformatter
     {
-        static readonly Regex _numericFormattedRegex = new Regex(@"{(\d{1,})}", RegexOptions.Compiled);
+        static readonly Regex _numericFormattedRegex = new(@"{(\d{1,})}", RegexOptions.Compiled);
 
         public bool TryPreformat(string templateString, object[] args, out string newTemplate, out object[] newArgs)
         {

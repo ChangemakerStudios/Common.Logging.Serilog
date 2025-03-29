@@ -26,7 +26,7 @@ namespace Common.Logging.Serilog
         /// <summary>
         ///     Instance of Serilog
         /// </summary>
-        readonly ILogger _logger;
+        private readonly ILogger? _logger;
 
         /// <summary>
         ///     Initializes a new instance of the SerilogFactoryAdapter class.
